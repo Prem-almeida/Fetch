@@ -42,7 +42,7 @@ will return integer value with the total points in the database for the user her
 The Request body needs to be a JSON with the following paramenters<br>
 Here Payer is a string , points is integer and timestamp is a ISO-standard date time format<br>
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/Prem-almeida/Fetch/blob/master/Fetch-points/Screenshots/add.png?raw=true)
 
 ```{ "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" } ```<br>
 ```{ "payer": "UNILEVER", "points": 200, "timestamp": "2020-10-31T11:00:00Z" } ```<br>
@@ -52,7 +52,7 @@ Here Payer is a string , points is integer and timestamp is a ISO-standard date 
 
 #### Without Date
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/Prem-almeida/Fetch/blob/master/Fetch-points/Screenshots/add_wo.png?raw=true)
 
 ```{ "payer": "DANNON", "points": 1000}```
 if tthe timestamp is null then the system will assign the current timestamp of the system for the transaction
@@ -71,7 +71,7 @@ will return JSON response with the list of all transaction for the user in the d
 -- **Path Parameters:s:** none
 -- **Response Body:** JSON
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/Prem-almeida/Fetch/blob/master/Fetch-points/Screenshots/all_trans.png?raw=true)
 
 ### Return Total point:
 will return integer value with the total points in the database for the user here the get_total(); function is used which internally uses a SQL query to calculate the total sum
@@ -83,7 +83,7 @@ will return integer value with the total points in the database for the user her
 - **Response Body:** JSON
 
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/Prem-almeida/Fetch/blob/master/Fetch-points/Screenshots/user_points.png?raw=true)
 
 
 ### Redeem Points:
@@ -99,7 +99,7 @@ reedem is done based on the two rules:
 - **Response Body:** JSON
 
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/Prem-almeida/Fetch/blob/master/Fetch-points/Screenshots/add.png?raw=true)
 
 ## Bonus Routes:
 
@@ -112,7 +112,7 @@ will return JSON response with the status if the element with the id was deleted
 -- **Path Parameters:s:** long id<br>
 -- **Response Body:** JSON<br>
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/Prem-almeida/Fetch/blob/master/Fetch-points/Screenshots/remove_id.png?raw=true)
 
 ### Delete All Zeros
 will delete all the values that have zero in the points section
@@ -123,6 +123,6 @@ will delete all the values that have zero in the points section
 -- **Path Parameters:s:** long id<br>
 -- **Response Body:** JSON<br>
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/Prem-almeida/Fetch/blob/master/Fetch-points/Screenshots/remove_all.png?raw=true)
 
 
