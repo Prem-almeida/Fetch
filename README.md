@@ -30,41 +30,20 @@ If you can’t directly import your project into your IDE, you may be able to ge
 
 ##  Routes:
 
-### Return all payer point balances
-will return JSON response with the list of all transaction for the user in the database 
-
-- Request Type: GET
-- Request Route: **```/fetch/v1/all_trans```**
-- Requestion Body: none
-- Path Parameters: none
-- Response Body: JSON
-
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
-
-### Return Total point:
-will return integer value with the total points in the database for the user here the get_total(); function is used which internally uses a SQL query to calculate the total sum
-
-- Request Type: GET
-- Request Route: **```/fetch/v1/User_points```**
-- Requestion Body: none
-- Path Parameters: none
-- Response Body: JSON
-
-
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
-
-
 ### Add transactions for a specific payer &/ Date
 will return integer value with the total points in the database for the user here the get_total(); function is used which internally uses a SQL query to calculate the total sum
 
-- Request Type: Post
-- Request Route: **```/fetch/v1/add```**
+- **Request Type:** POST
+-** Request Route:** **```/fetch/v1/add```**
 
-- Requestion Body: 
+- **8Requestion Body: **
 
 #### With Date
 The Request body needs to be a JSON with the following paramenters<br>
-Here Payer is a string , points is integer and timestamp is a 
+Here Payer is a string , points is integer and timestamp is a ISO-standard date time format<br>
+
+![Alt text](relative/path/to/img.jpg?raw=true "Title")
+
 ```{ "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" } ```<br>
 ```{ "payer": "UNILEVER", "points": 200, "timestamp": "2020-10-31T11:00:00Z" } ```<br>
 ```{ "payer": "DANNON", "points": -200, "timestamp": "2020-10-31T15:00:00Z" } ```<br>
@@ -72,13 +51,78 @@ Here Payer is a string , points is integer and timestamp is a
 ```{ "payer": "MILLER COORS", "points": 10000, "timestamp": "2020-11-01T14:00:00Z" } ```<br>
 
 #### Without Date
-xx
+
+![Alt text](relative/path/to/img.jpg?raw=true "Title")
+
+```{ "payer": "DANNON", "points": 1000}```
+if tthe timestamp is null then the system will assign the current timestamp of the system for the transaction
+
 
 - Path Parameters: none
 - Response Body: JSON
 
 
+### Return all payer point balances
+will return JSON response with the list of all transaction for the user in the database 
+
+-- **Request Type:** GET
+-- **Request Route:** **```/fetch/v1/all_trans```**
+-- **Requestion Body:** none
+-- **Path Parameters:s:** none
+-- **Response Body:** JSON
+
 ![Alt text](relative/path/to/img.jpg?raw=true "Title")
-### Spend points using the rules above and return a list of { "payer": <string>, "points": <integer> } for each call.  
+
+### Return Total point:
+will return integer value with the total points in the database for the user here the get_total(); function is used which internally uses a SQL query to calculate the total sum
+
+- **Request Type:** GET
+- **Request Route:** **```/fetch/v1/User_points```**
+- **Requestion Body:** none
+- **Path Parameters:** none
+- **Response Body:** JSON
+
+
+![Alt text](relative/path/to/img.jpg?raw=true "Title")
+
+
+### Redeem Points:
+will return a list of items which were redeemed
+reedem is done based on the two rules: 
+1. Will sort for the oldest transaction timestamp and redeem the oldest transaction first
+2. Will check if the total avaialbe points are enough for redeem and will return error if there are not enough points
+
+- **Request Type:** PUT
+- **Request Route:** **```/fetch/v1/redeem/{points}```**
+- **Requestion Body:** none
+- **Path Parameters:** int Points
+- **Response Body:** JSON
+
+
+![Alt text](relative/path/to/img.jpg?raw=true "Title")
+
+## Bonus Routes:
+
+### Delete BY ID
+will return JSON response with the status if the element with the id was deleted
+
+-- **Request Type:** DELETE
+-- **Request Route:** **```/fetch/v1/remove/{id}```**
+-- **Requestion Body:** none
+-- **Path Parameters:s:** long id
+-- **Response Body:** JSON
+
+![Alt text](relative/path/to/img.jpg?raw=true "Title")
+
+### Delete All Zeros
+will delete all the values that have zero in the points section
+
+-- **Request Type:** DELETE
+-- **Request Route:** **```/fetch/v1/remove_all```**
+-- **Requestion Body:** none
+-- **Path Parameters:s:** long id
+-- **Response Body:** JSON
+
+![Alt text](relative/path/to/img.jpg?raw=true "Title")
 
 
