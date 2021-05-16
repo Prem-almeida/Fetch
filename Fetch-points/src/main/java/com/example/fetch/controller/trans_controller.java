@@ -33,38 +33,45 @@ import com.example.fetch.repository.Profile_Repo;
 
 @RestController
 @RequestMapping("/fetch/v1/")
-public class trans_controller {
+public class trans_controller {	
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-	
-	
-	
-	
-
 	
 	@Autowired
 	private Profile_Repo profileRepository;
 
-	// get all Transactions
-	@GetMapping("/all_trans")
-	public List<Transaction> getAllTransaction() {
+	// get all Transactions sorted @GetMapping("/all_transs")
+	@GetMapping("/all_transs")
+	public List<Transaction> getAllTransactionn() {
+		
 		List<Transaction> all_items = new ArrayList<Transaction>();
 		all_items = profileRepository.findAll();
 
 //uncomment the next 2 statement if you care for sorting the list while displaying 
 //		Comparator<Transaction> com = new ComImpl();
 //		Collections.sort(all_items, com);
+		return all_items;
+	}
+	
+	// get all Transactions no Zeros @GetMapping("/all_trans")
+	@GetMapping("/all_trans")
+	public List<Transaction> getAllTransaction() {
+		
+		List<Transaction> all_items = new ArrayList<Transaction>();
+		all_items = profileRepository.findAll();
 
+//uncomment the next 2 statement if you care for sorting the list while displaying 
+//		Comparator<Transaction> com = new ComImpl();
+//		Collections.sort(all_items, com);
 		return Remove_zeros(all_items);
 	}
 
-	// get the total available points
+	// get the total available points @GetMapping("/User_points")
 	@GetMapping("/User_points")
 	public int totalpoints() {
 		return profileRepository.get_total();
 	}
 
-	// create Transaction
+	// create Transaction @PostMapping("/add")
 	@PostMapping("/add")
 	public Transaction CreateTransaction(@RequestBody Transaction trans) {
 
@@ -81,25 +88,47 @@ public class trans_controller {
 
 	}
 
-	// delete by id
+	// delete by i@DeleteMapping("remove_all/")
+	@DeleteMapping("remove_all/")
+	public List<Transaction> remove_e() {
+		List<Transaction> todelete = profileRepository.findAll();
+		List<Transaction> deleted = new ArrayList<Transaction>();
+		
+		for(int i=0;i<todelete.size();i++) {
+			Transaction x = todelete.get(i);
+			if(x.getPoints()==0)
+				
+			{
+				deleted.add(x);
+				System.out.println("Deleted: {"+x.getTransaction_no()+", "+x.getPayer()+","+x.getPoints()+", "+x.getTimestamp());
+				profileRepository.delete(x);
+			}
+			
+		}
+				
+		return deleted;
+	}
+	
+	// Remove Empty @DeleteMapping("remove/{id}")
 	@DeleteMapping("remove/{id}")
 	public ResponseEntity<Map<String, Boolean>> remove(@PathVariable long id) {
-		Transaction todelete = profileRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFound("The Item you are trying to remove does not exsist:" + id));
+			
+			Transaction todelete = profileRepository.findById(id)
+					.orElseThrow(() -> new ResourceNotFound("The Item you are trying to remove does not exsist:" + id));
 
-		profileRepository.delete(todelete);
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("Deleted ID:" + id, Boolean.TRUE);
-		return ResponseEntity.ok(map);
-	}
+			profileRepository.delete(todelete);
+			Map<String, Boolean> map = new HashMap<>();
+			map.put("Deleted ID:" + id, Boolean.TRUE);
+			return ResponseEntity.ok(map);
+		}
 
-	// redeem
-	@PutMapping("/redeem")
-	public List<result> redeem(@RequestBody result body) {
+	// redeem @PutMapping("/redeem")
+	@PutMapping("/redeem/{point}")
+	public List<result> redeem(@PathVariable int point) {
 
-		// Points from Request body to redeem
-		int point = body.getPoints();
-
+		
+		System.out.println("Points to redeem: "+point);		
+		
 		// create a sub item to return
 		List<result> sub = new ArrayList<result>();
 		List<Transaction> all_items = new ArrayList<Transaction>();
@@ -109,11 +138,13 @@ public class trans_controller {
 		Comparator<Transaction> com = new ComImpl();
 		Collections.sort(all_items, com);
 
+		//Store points to remove in a temp variable
 		int temp_r_point = point;
-
+		
+		
 		// check the total points for remove
 		int total = profileRepository.get_total();
-		System.out.println("\nPoints to redeem:" + point + " total:" + total + " items:" + (all_items.size()) + "\n\n");
+		System.out.println("\nPoints to redeem:" + point + " total:" + total + " items in db:" + (all_items.size()) + "\n\n");
 
 		if (point > total) {
 
@@ -184,6 +215,7 @@ public class trans_controller {
 
 	}
 
+	//Update Result Method
 	public List<result> update_result(result cur, List<result> rs) {
 		System.out.println("\n-------Update_result-Start--------\n");
 		if (rs.isEmpty()) {
@@ -218,11 +250,13 @@ public class trans_controller {
 
 	}
 
+	
+	//will remove duplicate zeros
 	public List<Transaction> Remove_zeros(List<Transaction> ts) {
 
 		System.out.println("\n-------Remove-Start---" + ts.size() + "-----\n");
-
 		List<Transaction> no_zero = new ArrayList<Transaction>();
+		
 		HashMap<String,Integer> track_payer = new HashMap<String,Integer>();
 		int index=0;
 		
@@ -254,12 +288,8 @@ public class trans_controller {
 					if(no_zero.get(track_payer.get(tr.getPayer())).getPoints()==0) {
 						
 						System.out.println("-->Null item update "+no_zero.get(track_payer.get(tr.getPayer())).getPayer());
-						
-						
 						System.out.println("Remove old "+no_zero.get(track_payer.get(tr.getPayer())).getPayer()+" from no_zero "+track_payer.get(tr.getPayer())+"");
-						
-						
-						
+										
 						int remove=track_payer.get( tr.getPayer() );
 						System.out.println("Remove "+remove);
 						no_zero.remove(remove);
@@ -296,18 +326,12 @@ public class trans_controller {
 		return no_zero;
 	}
 
-
+	//test @GetMapping("/test")
 	@GetMapping("/test")
 	public void test() {
 		
 		System.out.println("test");
-		
-		
-		
-		
-		
+	
 	}
-
-
 
 }
