@@ -106,22 +106,22 @@ reedem is done based on the two rules:
 ### Delete BY ID
 will return JSON response with the status if the element with the id was deleted
 
--- **Request Type:** DELETE
--- **Request Route:** **```/fetch/v1/remove/{id}```**
--- **Requestion Body:** none
--- **Path Parameters:s:** long id
--- **Response Body:** JSON
+-- **Request Type:** DELETE<br>
+-- **Request Route:** **```/fetch/v1/remove/{id}```**<br>
+-- **Requestion Body:** none<br>
+-- **Path Parameters:s:** long id<br>
+-- **Response Body:** JSON<br>
 
 ![Alt text](relative/path/to/img.jpg?raw=true "Title")
 
 ### Delete All Zeros
 will delete all the values that have zero in the points section
 
--- **Request Type:** DELETE
--- **Request Route:** **```/fetch/v1/remove_all```**
--- **Requestion Body:** none
--- **Path Parameters:s:** long id
--- **Response Body:** JSON
+-- **Request Type:** DELETE<br>
+-- **Request Route:** **```/fetch/v1/remove_all```**<br>
+-- **Requestion Body:** none<br>
+-- **Path Parameters:s:** long id<br>
+-- **Response Body:** JSON<br>
 
 ![Alt text](relative/path/to/img.jpg?raw=true "Title")
 
