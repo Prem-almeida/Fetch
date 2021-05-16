@@ -25,9 +25,6 @@ There is a file included in the repo which can be imported in mysql_workbench or
 If you can’t directly import your project into your IDE, you may be able to generate IDE metadata using a build plugin. Maven includes plugins for Eclipse and IDEA;
 
 
-## Funcationing & Features
-
-
 ##  Routes:
 
 ### Add transactions for a specific payer &/ Date
