@@ -16,8 +16,27 @@ the points are spent. There are two rules for determining what points to "spend"
 
 ## Installation
 
+###Install mySQL & mySQl workbench
+you will need mysql workbench to import the database schema from the .sql file [Steps To Download & Install](https://dev.mysql.com/doc/workbench/en/wb-installing-mac.html) please remember the username and password of mysql as this is needed for configuration & connection of the database to the application
+
 ### Import Database Structure
 There is a file included in the repo which can be imported in mysql_workbench or similar to create the database and table with exact fields
+<br>
+Steps
+<br>
+- Open MySQL workbench
+- Login 
+- Go to ```Server > Data Import```
+- Select the ```Make_database.sql``` file from the repo
+this should create the database in the system 
+- [How to Import Data](https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-management.html)
+
+### Connecting to Database
+```go to Fetch/Fetch-points/src/main/resources/application.properties``` here update the following fields
+- spring.datasource.url=jdbc:mysql://localhost:3306/fetch?useSSL=false <br>this should be same for most system but if not please change 
+- spring.datasource.username= [YOUR USERNAME]
+- spring.datasource.password= [YOUR PASSWORD]
+
 
 ### [Running from an IDE](https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/using-boot-running-your-application.html)
 * You can run a Spring Boot application from your IDE as a simple Java application, however, first you will need to import your project. Import steps will vary depending on your IDE and build system. 
